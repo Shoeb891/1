@@ -1,0 +1,29 @@
+Description:
+
+### Set-1:
+This set includes commands for managing file attributes and permissions in Hadoop HDFS. It allows users to append data to files, check file integrity with checksums, modify group and file permissions, and manage file ownership.
+
+### Set-2:
+These commands deal with file transfer between the local filesystem and HDFS. They include options for copying files to/from HDFS, handling file checksums, and counting files or directories. It also covers ownership management during file transfers.
+
+### Set-3:
+This set is focused on managing HDFS files and directories, including operations like copying files within HDFS, creating and managing snapshots, deleting files, and checking disk usage. It also includes commands to get or move files within the Hadoop ecosystem.
+
+### Set-4:
+These commands are used for managing file attributes and viewing directory contents in HDFS. They include options for setting and viewing file ACLs, managing file attributes, merging files, and viewing help information for specific commands.
+
+### Set-5:
+This set focuses on moving files between HDFS and the local filesystem, including commands to move files within HDFS or from local to HDFS. It also covers renaming files, removing files or directories, and skipping trash while removing files.
+
+### Set-6:
+This set includes commands for managing file and directory operations in HDFS, such as removing directories, setting file ACLs and attributes, getting file statistics, and performing text file operations. It also provides options for setting replication factors and checking file existence.
+
+Each set is associated with specific file and directory management tasks in Hadoop HDFS, enabling users to manage files, permissions, and data movement within the Hadoop ecosystem.
+
+application:
+
+1. **[-help [cmd ...]]** - Provides help for Hadoop commands.
+2. **[-ignoreCrc]** - Ignores CRC (Cyclic Redundancy Check) while performing operations.
+3. **[-p]** - Preserves file attributes, such as permissions and timestamps, during file operations.
+4. **[-R]** - Recursively applies the command to all subdirectories and files.
+5. **[-f]** - Forces the operation, typically overriding any existing files or errors.

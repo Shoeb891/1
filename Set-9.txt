@@ -1,0 +1,53 @@
+Description:
+This Pig script processes the `/etc/passwd` file to extract usernames and passwords, then groups users by their shell type and counts them. The output shows the number of users assigned to each shell, providing insights into user distributions across different environments.
+
+Applications:
+1. *Data Analysis*  
+2. *Report Generation* 
+3. *Business Intelligence* 
+4. **Log Analysis
+5. *Performance Monitoring*
+
+Program:
+Step 1: Copy /etc/passwd into pig_programs folder as passwd.txt  
+
+Step 2: Create pass_analysis.pig  
+pass = load 'passwd.txt' using PigStorage(':') as (  
+    username:chararray,  
+    pwd:chararray,  
+    userid:int,  
+    groupid:int,  
+    userinfo:chararray,  
+    root_dir:chararray,  
+    shell:chararray  
+);  
+user_list = foreach pass generate username, pwd;  
+dump user_list;  
+
+Step 3: Create pass_analysis1.pig  
+pass = load 'passwd.txt' using PigStorage(':') as (  
+    username:chararray,  
+    pwd:chararray,  
+    userid:int,  
+    groupid:int,  
+    userinfo:chararray,  
+    root_dir:chararray,  
+    shell:chararray  
+);  
+grp_by_shell = group pass by shell;  
+pass_cnt = foreach grp_by_shell generate group, count(pass);  
+STORE pass_cnt INTO 'pig_output' USING PigStorage('\t');  
+
+Step 4: Execute pass_analysis.pig  
+pig -x local pass_analysis.pig  
+
+Step 5: Execute pass_analysis1.pig  
+pig -x local pass_analysis1.pig  
+
+Step 6: View the result through command interface  
+hadoop dfs -cat pig_output/part-r-00000  
+
+Output:
+/bin/bash    4
+/bin/sh      2
+/sbin/nologin 3

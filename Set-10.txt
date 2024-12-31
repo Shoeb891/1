@@ -1,0 +1,93 @@
+Description:
+This set of UDFs includes a `Strip` function that removes specified characters or whitespace from a string, a `ConvertToCelcius` function that converts Fahrenheit to Celsius, and an `AbsValue` function that calculates the absolute value of `int`, `long`, or `double` inputs.
+
+
+Applications:
+1. *Data Analysis*  
+2. *Report Generation* 
+3. *Business Intelligence* 
+4. **Log Analysis
+5. *Performance Monitoring*
+
+Program:
+
+Trim-like Function (Strip UDF) in Hive
+
+package stripword;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.hadoop.hive.ql.exec.UDF;
+import org.apache.hadoop.io.Text;
+
+public class Strip extends UDF {
+    private Text result = new Text();
+
+    public Text evaluate(Text str, String stripChars) {
+        if(str == null) {
+            return null;
+        }
+        result.set(StringUtils.strip(str.toString(), stripChars));
+        return result;
+    }
+
+    public Text evaluate(Text str) {
+        if(str == null) {
+            return null;
+        }
+        result.set(StringUtils.strip(str.toString()));
+        return result;
+    }
+}
+
+Output:
+
+hive> select Strip('hadooop','ha') from dummy;
+dooop
+hive> select Strip(' hiveUDF ') from dummy;
+hiveUDF
+
+Convert Celsius to Fahrenheit UDF in Hive:
+
+package udfpack;
+
+import org.apache.hadoop.hive.ql.exec.UDF;
+
+public class ConvertToCelcius extends UDF {
+    public double evaluate(double value) {
+        return (value - 32) / 1.8;
+    }
+}
+
+Output:
+
+hive> add jar /home/training/HiveUDFs/contocel.jar;
+hive> create temporary function ConvertToCelcius as 'udfpack.ConvertToCelcius';
+hive> SELECT ConvertToCelcius(100) from dummy;
+37.77
+
+Absolute Value UDF in Hive (Overloading evaluate method)
+
+package udfpack;
+
+import org.apache.hadoop.hive.ql.exec.UDF;
+
+public class AbsValue extends UDF {
+    public double evaluate(double value) {
+        return Math.abs(value);
+    }
+    
+    public long evaluate(long value) {
+        return Math.abs(value);
+    }
+    
+    public int evaluate(int value) {
+        return Math.abs(value);
+    }
+}
+
+Output:
+
+hive> add jar /home/training/HiveUDFs/absvalue.jar;
+hive> create temporary function AbsValue as 'udfpack.AbsValue';
+hive> SELECT AbsValue(-42) from dummy;
+42

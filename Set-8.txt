@@ -1,0 +1,40 @@
+**Description:**  
+This Java program calculates the average of marks from 6 subjects and assigns a grade based on the result. It takes input for each subject, computes the total, and displays the grade (A, B, C, or D) according to the average score.
+
+Applications:
+1. *Data Analysis*  
+2. *Report Generation* 
+3. *Business Intelligence* 
+4. **Log Analysis
+5. *Performance Monitoring*
+
+Program:
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int marks[] = new int[6], total = 0;
+        Scanner s = new Scanner(System.in);
+        
+        for(int i = 0; i < 6; i++) {
+            System.out.print("Enter Marks of Subject" + (i + 1) + ":");
+            marks[i] = s.nextInt();
+            total += marks[i];
+        }
+        s.close();
+        
+        int avg = total / 6;
+        System.out.print("The student Grade is: ");
+        System.out.println(avg >= 80 ? "A" : avg >= 60 ? "B" : avg >= 40 ? "C" : "D");
+    }
+}
+
+Output:
+
+Enter Marks of Subject1:40  
+Enter Marks of Subject2:80  
+Enter Marks of Subject3:80  
+Enter Marks of Subject4:40  
+Enter Marks of Subject5:60  
+Enter Marks of Subject6:60  
+The student Grade is: B  
